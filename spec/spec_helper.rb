@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "standard_assertions"
+require "standard_assert"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

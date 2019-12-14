@@ -1,7 +1,7 @@
 require "forwardable"
 require "test/unit/assertion-failed-error"
 
-class AssertionFailedError < StandardError
+class AssertionError < StandardError
   extend ::Forwardable
 
   OriginalError = ::Test::Unit::AssertionFailedError
@@ -20,5 +20,5 @@ end
 
 Test::Unit.class_exec do
   remove_const :AssertionFailedError
-  const_set :AssertionFailedError, ::AssertionFailedError
+  const_set :AssertionFailedError, AssertionError
 end
