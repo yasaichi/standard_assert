@@ -10,7 +10,10 @@ Gem::Specification.new do |spec|
   spec.email         = ["yasaichi@users.noreply.github.com"]
 
   spec.summary       = %q{Standard Library-like library for assertions in Ruby}
-  spec.description   = %q{Standard Library-like library for assertions available anywhere; Not only testing but also production code.}
+  spec.description   = %Q{`standard_assertions` is a Standard Library-like library for assertions \
+in Ruby. It is aimed at encouraging us to use assertion methods anywhere; Not only testing \
+but also production.}
+  p spec.description
   spec.homepage      = "https://github.com/yasaichi/standard_assertions"
   spec.license       = "MIT"
 

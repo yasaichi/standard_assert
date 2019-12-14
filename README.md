@@ -1,8 +1,7 @@
-# StandardAssertions
+# standard_assertions
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/standard_assertions`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+`standard_assertions` is a Standard Library-like library for assertions in Ruby.  
+It is aimed at encouraging us to use assertion methods anywhere; Not only testing but also production.
 
 ## Installation
 
@@ -14,25 +13,42 @@ gem 'standard_assertions'
 
 And then execute:
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install standard_assertions
+```
+$ bundle
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Use `Assertions` module with `extend` or `include` in classes or modules where you want to use assertion methods:
 
-## Development
+```ruby
+require 'standard_assertions'
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+module MyMath
+  extend ::Assertions
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+  module_function def abs(x)
+    assert_kind_of(::Numeric, x)
+    x > 0 ? x : -x
+  end
+end
+
+MyMath.abs('42')
+#=> AssertionFailedError:
+#     <"42"> was expected to be kind_of?
+#     <Numeric> but was
+#     <String>.
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/standard_assertions.
+You should follow the steps below.
+
+1. [Fork the repository](https://help.github.com/articles/fork-a-repo/)
+2. Create a feature branch: `git checkout -b add-new-feature`
+3. Commit your changes: `git commit -am 'Add new feature'`
+4. Push the branch: `git push origin add-new-feature`
+5. [Send us a pull request](https://help.github.com/articles/about-pull-requests/)
 
 ## License
 
