@@ -1,6 +1,6 @@
-# standard_assertions
+# standard_assert
 
-`standard_assertions` is a Standard Library-like library for assertions in Ruby.  
+`standard_assert` is a Standard Library-like library for assertions in Ruby.  
 It is aimed at encouraging us to use assertion methods anywhere; Not only testing but also production.
 
 ## Installation
@@ -8,7 +8,7 @@ It is aimed at encouraging us to use assertion methods anywhere; Not only testin
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'standard_assertions'
+gem 'standard_assert'
 ```
 
 And then execute:
@@ -19,13 +19,13 @@ $ bundle
 
 ## Usage
 
-Use `Assertions` module with `extend` or `include` in classes or modules where you want to use assertion methods:
+Use `Assert` module with `extend` or `include` in classes or modules where you want to use assertion methods:
 
 ```ruby
-require 'standard_assertions'
+require 'standard_assert'
 
 module MyMath
-  extend ::Assertions
+  extend ::Assert
 
   module_function def abs(x)
     assert_kind_of(::Numeric, x)
@@ -34,7 +34,7 @@ module MyMath
 end
 
 MyMath.abs('42')
-#=> AssertionFailedError:
+#=> AssertionError:
 #     <"42"> was expected to be kind_of?
 #     <Numeric> but was
 #     <String>.
