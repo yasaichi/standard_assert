@@ -1,0 +1,14 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - Gemfile
+    - standard_assert.gemspec
+
+Metrics/LineLength:
+  Max: 100
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

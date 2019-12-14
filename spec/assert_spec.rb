@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Assert do
   subject do
     Class.new do
