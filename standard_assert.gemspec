@@ -16,7 +16,7 @@ but also production.}
   spec.homepage      = "https://github.com/yasaichi/standard_assert"
   spec.license       = "MIT"
 
-  spec.files         = Dir["lib/**/*", "LICENSE.txt", "Rakefile", "README.md"]
+  spec.files         = Dir["lib/**/*", "CHANGELOG.md", "LICENSE.txt", "Rakefile", "README.md"]
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
