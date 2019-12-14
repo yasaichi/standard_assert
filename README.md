@@ -1,5 +1,10 @@
 # standard_assert
 
+[![Gem Version](https://badge.fury.io/rb/standard_assert.svg)](http://badge.fury.io/rb/standard_assert)
+[![Build Status](https://travis-ci.org/yasaichi/standard_assert.svg?branch=master)](https://travis-ci.org/yasaichi/standard_assert)
+[![Code Climate](https://codeclimate.com/github/yasaichi/standard_assert/badges/gpa.svg)](https://codeclimate.com/github/yasaichi/standard_assert)
+[![Test Coverage](https://codeclimate.com/github/yasaichi/standard_assert/badges/coverage.svg)](https://codeclimate.com/github/yasaichi/standard_assert/coverage)
+
 `standard_assert` is a Standard Library-like library for assertions in Ruby.  
 It is aimed at encouraging us to use assertion methods anywhere; Not only testing but also production.
 
