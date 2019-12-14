@@ -32,9 +32,7 @@ require 'standard_assert'
 module MyMath
   extend ::Assert
 
-  module_function
-
-  def abs(num)
+  module_function def abs(num)
     assert_instance_of([::Float, ::Integer, ::Rational], num)
     num.positive? ? num : -num
   end
@@ -45,6 +43,11 @@ MyMath.abs('42')
 #   [<Float>, <Integer>, <Rational>] but was
 #   <String>.
 ```
+
+Note that `Assert` provides the same methods defined in `Test::Unit::Assertions` of `test-unit` gem
+except they throw not `Test::Unit::AssertionFailedError` but `AssertionError` when an assertion fails.
+
+See also: https://test-unit.github.io/test-unit/en/Test/Unit/Assertions.html
 
 ## Contributing
 

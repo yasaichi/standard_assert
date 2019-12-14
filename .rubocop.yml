@@ -7,6 +7,9 @@ AllCops:
 Metrics/LineLength:
   Max: 100
 
+Style/AccessModifierDeclarations:
+  EnforcedStyle: inline
+
 Style/Documentation:
   Enabled: false
 

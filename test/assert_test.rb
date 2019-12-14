@@ -7,9 +7,7 @@ class AssertTest < Test::Unit::TestCase
   module MyMath
     extend ::Assert
 
-    module_function
-
-    def abs(num)
+    module_function def abs(num)
       assert_instance_of([::Float, ::Integer, ::Rational], num)
       num.positive? ? num : -num
     end
