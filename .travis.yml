@@ -3,5 +3,23 @@ sudo: false
 language: ruby
 cache: bundler
 rvm:
-  - 2.6.0
-before_install: gem install bundler -v 1.17.3
+  - 2.4
+  - 2.5
+  - 2.6
+branches:
+  only:
+    - master
+before_install:
+  - gem update --system --no-doc
+  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+  - gem install bundler -v '~> 1.0'
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+after_script:
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+notifications:
+  email: false
+  slack:
+    secure: "WfFwhVgOseO0pWWf5IGSEzhmMI79V1SJbH7sLA/HvgDHMBF+Qn7Cc1MZU77K7WJ/xjpb7XOY1az03zPrF4neksqwr4JkTQLXMht0XALUV/nHPi0BWKsmNNYI7brAjdbbjJJ2gVqnpuf2nVj7AWO4KD/aiMNvdzA2RUgJSaZ9+fD66Z0VhMCm8zbRW/KJq/1foX3pwuQ1eKh0JeyUAbw9sgJFUu6C3jHEDSlb53owCbnke6fbRvJKRWZaeJoTudfQOE3uzOj5bria8Lj0k/ueiqIaQ4KPRe7DD9NSTTgJY50LhIokU399fJmOF3q6rXtTcVLgqg7Q4BtPKEfYVZPjusCn1j4g5Fx6JoUAa3yJzksPcQsNyGaJjBM0Ocf6brNUIsbWD1oHhTu/z4X4jXimvlIv34pmjTJIlDQaU8N3nTtGSBLdWu7hKIKfwPsd3uNxN5Zq+o8yEDtGP5eAeBuyencdXnqHbcfgFKfBqA5Y0B2Qe8NINWAGjdvtgNrnzziTpQ7aJuiT72z0qSI+7JweTteVLfi2Ywkzdy5JAAcYZF1X4ipP5W9Z6OtXuStrynakCDdWirG4g/XYasZj71oMGSH8ax5FTL3RECcLM1F1bqTHsNTYjyaBBeHJFfnRomqWNJuVlzKjWgrWZb72/pZsV2t/AKUE54Eqndn7HezYUXc="

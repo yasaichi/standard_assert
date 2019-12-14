@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
+require "simplecov"
+
+SimpleCov.start do
+  add_filter "/spec/"
+end
+
 require "standard_assert"
 
 RSpec.configure do |config|

@@ -25,5 +25,6 @@ but also production.}
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "simplecov"
   spec.add_dependency "test-unit", ">= 3.0"
 end
