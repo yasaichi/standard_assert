@@ -32,17 +32,18 @@ require 'standard_assert'
 module MyMath
   extend ::Assert
 
-  module_function def abs(x)
-    assert_kind_of(::Numeric, x)
-    x > 0 ? x : -x
+  module_function
+
+  def abs(num)
+    assert_instance_of([::Float, ::Integer, ::Rational], num)
+    num.positive? ? num : -num
   end
 end
 
 MyMath.abs('42')
-#=> AssertionError:
-#     <"42"> was expected to be kind_of?
-#     <Numeric> but was
-#     <String>.
+#=> AssertionError: <"42"> was expected to be instance_of?
+#   [<Float>, <Integer>, <Rational>] but was
+#   <String>.
 ```
 
 ## Contributing
