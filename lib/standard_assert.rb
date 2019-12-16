@@ -16,6 +16,7 @@ module StandardAssert
     end
 
     alias inspect to_s
+    alias name to_s
   end
 
   %i[public protected private].each do |visibility|
