@@ -6,12 +6,19 @@ require_relative "standard_assert/version"
 
 module StandardAssert
   using(::Module.new do
-    refine ::StandardAssert do
-      (mod = ::Test::Unit::Assertions.dup).module_exec do
+    assertions = ::Object.new.extend(::Test::Unit::Assertions.dup.tap do |mod|
+      mod.module_exec do
         const_set :AssertionFailedError, ::AssertionError
       end
+    end)
 
-      define_method(:assertions) { @assertions ||= ::Object.new.extend(mod) }
+    refine ::StandardAssert do
+      define_method(:assertions) { assertions }
+    end
+
+    # NOTE: It isn't working to call `define_singleton_method` in `refine ::StandardAssert` block
+    refine ::StandardAssert.singleton_class do
+      define_method(:assertions) { assertions }
     end
   end)
 
@@ -31,7 +38,7 @@ module StandardAssert
                           .select(&ASSERTION_METHOD_PATTERN.method(:match?))
                           .each do |name|
     class_eval <<~CODE, __FILE__, __LINE__ + 1
-      private def #{name}(*args, &block)
+      module_function def #{name}(*args, &block)
         assertions.public_send(:#{name}, *args, &block)
       end
     CODE

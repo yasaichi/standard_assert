@@ -24,24 +24,44 @@ $ bundle
 
 ## Usage
 
-Use `Assert` module with `extend` or `include` in classes or modules where you want to use assertion methods:
+Since assertion methods are defined as module functions of `Assert`, you can use them as instance methods
+to any classes that mix in the module:
 
 ```ruby
 require 'standard_assert'
 
-module MyMath
-  extend ::Assert
+class Stack
+  include ::Assert
 
-  module_function def abs(num)
-    assert_instance_of([::Float, ::Integer, ::Rational], num)
-    num.positive? ? num : -num
+  def initialize
+    @store = []
+  end
+
+  def pop
+    assert_not_empty(@store)
+    @store.pop
+  end
+
+  def push(element)
+    @store.push(element)
+    self
   end
 end
 
-MyMath.abs('42')
-#=> AssertionError: <"42"> was expected to be instance_of?
-#   [<Float>, <Integer>, <Rational>] but was
-#   <String>.
+Stack.new.pop #=> <[]> was expected to not be empty.>
+```
+
+Or just call them with the module as a receiver:
+
+```ruby
+class Stack
+  def peek
+    ::Assert.assert_not_empty(@store)
+    @store.last
+  end
+end
+
+Stack.new.peek #=> <[]> was expected to not be empty.>
 ```
 
 Note that `Assert` provides the same `assert(_*)` methods defined in `Test::Unit::Assertions`
