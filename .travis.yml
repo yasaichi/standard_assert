@@ -10,7 +10,6 @@ branches:
   only:
     - master
 before_install:
-  - gem update --system --no-doc
   - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
   - gem install bundler -v '~> 1.0'
 before_script:
