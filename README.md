@@ -44,8 +44,9 @@ MyMath.abs('42')
 #   <String>.
 ```
 
-Note that `Assert` provides the same methods defined in `Test::Unit::Assertions` of `test-unit` gem
-except they throw not `Test::Unit::AssertionFailedError` but `AssertionError` when an assertion fails.
+Note that `Assert` provides the same `assert(_*)` methods defined in `Test::Unit::Assertions`
+of `test-unit` gem except they throw not `Test::Unit::AssertionFailedError` but `AssertionError`
+when an assertion fails.
 
 See also: https://test-unit.github.io/test-unit/en/Test/Unit/Assertions.html
 

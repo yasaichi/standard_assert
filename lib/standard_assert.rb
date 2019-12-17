@@ -4,12 +4,20 @@ require "test/unit/assertions"
 require_relative "standard_assert/assertion_error"
 require_relative "standard_assert/version"
 
-Test::Unit.class_exec do
-  remove_const :AssertionFailedError
-  const_set :AssertionFailedError, AssertionError
-end
-
 module StandardAssert
+  using(::Module.new do
+    refine ::StandardAssert do
+      (mod = ::Test::Unit::Assertions.dup).module_exec do
+        const_set :AssertionFailedError, ::AssertionError
+      end
+
+      define_method(:assertions) { @assertions ||= ::Object.new.extend(mod) }
+    end
+  end)
+
+  ASSERTION_METHOD_PATTERN = /\Aassert(_.+)?\z/.freeze
+  private_constant :ASSERTION_METHOD_PATTERN
+
   class << self
     def to_s
       "Assert"
@@ -19,11 +27,14 @@ module StandardAssert
     alias name to_s
   end
 
-  %i[public protected private].each do |visibility|
-    ::Test::Unit::Assertions.public_send("#{visibility}_instance_methods").each do |name|
-      define_method name, ::Test::Unit::Assertions.instance_method(name)
-      __send__(visibility, name)
-    end
+  ::Test::Unit::Assertions.public_instance_methods
+                          .select(&ASSERTION_METHOD_PATTERN.method(:match?))
+                          .each do |name|
+    class_eval <<~CODE, __FILE__, __LINE__ + 1
+      private def #{name}(*args, &block)
+        assertions.public_send(:#{name}, *args, &block)
+      end
+    CODE
   end
 end
 
