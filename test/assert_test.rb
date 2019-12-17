@@ -4,27 +4,63 @@ require "test_helper"
 
 class AssertTest < Test::Unit::TestCase
   # NOTE: same as one in README
-  module MyMath
-    extend ::Assert
+  ## Example1
+  class Stack
+    include ::Assert
 
-    module_function def abs(num)
-      assert_instance_of([::Float, ::Integer, ::Rational], num)
-      num.positive? ? num : -num
+    def initialize
+      @store = []
     end
+
+    def pop
+      assert_not_empty(@store)
+      @store.pop
+    end
+
+    def push(element)
+      @store.push(element)
+      self
+    end
+  end
+
+  ## Example2
+  class Stack
+    def peek
+      ::Assert.assert_not_empty(@store)
+      @store.last
+    end
+  end
+
+  def setup
+    @stack = Stack.new
   end
 
   test "should provide only `assert(_*)` methods" do
     assertion_method_pattern = /\Aassert(_.+)?\z/
 
-    assert_empty(Assert.instance_methods)
-    assert(Assert.private_instance_methods.all?(&assertion_method_pattern.method(:match?)))
+    assert_empty(::Assert.instance_methods)
+    assert(::Assert.private_instance_methods.all?(&assertion_method_pattern.method(:match?)))
   end
 
-  test "should raise `AssertionError` when the preconditions aren't satisfied" do
-    assert_raise(AssertionError) { MyMath.abs("42") }
+  sub_test_case("when using the assert methods in a class that mixin the module") do
+    test "should raise `AssertionError` when the preconditions aren't satisfied" do
+      assert_raise(::AssertionError) { @stack.pop }
+    end
+
+    test "should not raise any errors when the preconditions are satisfied" do
+      @stack.push(42)
+      assert_nothing_raised { @stack.pop }
+    end
   end
 
-  test "should not raise any errors when the preconditions are satisfied" do
-    assert_equal(42, MyMath.abs(-42))
+  sub_test_case("when calling the assert methods with the module as a receiver") do
+    test "should raise `AssertionError` when the preconditions aren't satisfied" do
+      assert_raise(::AssertionError) { @stack.peek }
+    end
+
+    test "should not raise any errors when the preconditions are satisfied" do
+      @stack.push(42)
+      assert_nothing_raised { @stack.peek }
+    end
   end
 end
