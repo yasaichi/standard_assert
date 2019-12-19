@@ -13,7 +13,7 @@ class AssertTest < Test::Unit::TestCase
     end
 
     def pop
-      assert_not_empty(@store)
+      assert(!@store.empty?)
       @store.pop
     end
 
@@ -26,7 +26,7 @@ class AssertTest < Test::Unit::TestCase
   ## Example2
   class Stack
     def peek
-      ::Assert.assert_not_empty(@store)
+      ::Assert.assert(!@store.empty?)
       @store.last
     end
   end
@@ -36,7 +36,7 @@ class AssertTest < Test::Unit::TestCase
   end
 
   test "should provide only `assert(_*)` methods" do
-    assertion_method_pattern = /\Aassert(_.+)?\z/
+    assertion_method_pattern = /\Aassert(?:_\w+)?\z/
 
     assert_empty(::Assert.instance_methods)
     assert(::Assert.private_instance_methods.all?(&assertion_method_pattern.method(:match?)))
