@@ -25,8 +25,8 @@ module StandardAssert
     attr_reader :assertions
 
     # NOTE: `Minitest::Assertions` expects to be able to increment an instance accessor named
-    # `assertions`, but we don't need the accessor because it's used for reporting test results.
-    # So define a writer that does nothing and always returns the same value.
+    # `assertions`, but we don't need the accessor because it's for reporting test results.
+    # So define the writer that does nothing and returns a constant value.
     def assertions=(_val)
       @assertions
     end
