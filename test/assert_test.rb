@@ -38,13 +38,13 @@ describe Assert do
   it "should provide only `assert` and `assert_*` methods" do
     assertion_method_pattern = /\Aassert(?:_\w+)?\z/
 
-    assert_empty(::Assert.instance_methods)
-    assert(::Assert.private_instance_methods.all?(&assertion_method_pattern.method(:match?)))
+    assert_empty(Assert.instance_methods)
+    assert(Assert.private_instance_methods.all?(&assertion_method_pattern.method(:match?)))
   end
 
   describe "when using the assert methods in a class that mixin the module" do
     it "should raise `AssertionError` when the preconditions aren't satisfied" do
-      assert_raises(::AssertionError) { @stack.pop }
+      assert_raises(AssertionError) { @stack.pop }
     end
 
     it "should not raise any errors when the preconditions are satisfied" do
@@ -55,7 +55,7 @@ describe Assert do
 
   describe "when calling the assert methods with the module as a receiver" do
     it "should raise `AssertionError` when the preconditions aren't satisfied" do
-      assert_raises(::AssertionError) { @stack.peek }
+      assert_raises(AssertionError) { @stack.peek }
     end
 
     it "should not raise any errors when the preconditions are satisfied" do
