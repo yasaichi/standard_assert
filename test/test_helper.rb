@@ -9,4 +9,4 @@ end
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "standard_assert"
 
-require "test/unit"
+require "minitest/autorun"
