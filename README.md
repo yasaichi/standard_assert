@@ -38,7 +38,7 @@ class Stack
   end
 
   def pop
-    assert_not_empty(@store)
+    assert(!@store.empty?)
     @store.pop
   end
 
@@ -48,7 +48,7 @@ class Stack
   end
 end
 
-Stack.new.pop #=> <[]> was expected to not be empty.>
+Stack.new.pop #=> AssertionError (Expected false to be truthy.)
 ```
 
 Or just call them with the module as a receiver:
@@ -56,19 +56,18 @@ Or just call them with the module as a receiver:
 ```ruby
 class Stack
   def peek
-    ::Assert.assert_not_empty(@store)
+    ::Assert.assert(!@store.empty?)
     @store.last
   end
 end
 
-Stack.new.peek #=> <[]> was expected to not be empty.>
+Stack.new.peek #=> AssertionError (Expected false to be truthy.)
 ```
 
-Note that `Assert` provides the same `assert(_*)` methods defined in `Test::Unit::Assertions`
-of `test-unit` gem except they throw not `Test::Unit::AssertionFailedError` but `AssertionError`
-when an assertion fails.
+Note that `Assert` provides `aseert` and `assert_*` methods same as in `Minitest::Assertions`
+except they throw not `Minitest::Assertion` but `AssertionError` when an assertion fails.
 
-See also: https://test-unit.github.io/test-unit/en/Test/Unit/Assertions.html
+See also: http://docs.seattlerb.org/minitest/Minitest/Assertions.html
 
 ## Contributing
 
