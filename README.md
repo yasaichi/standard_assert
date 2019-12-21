@@ -24,8 +24,7 @@ $ bundle
 
 ## Usage
 
-Since assertion methods are defined as module functions of `Assert`, you can use them as instance methods
-to any classes that mix in the module:
+Include `Assert` module in a class, and you can use the assertion methods as its private methods:
 
 ```ruby
 require 'standard_assert'
@@ -64,8 +63,11 @@ end
 Stack.new.peek #=> AssertionError (Expected false to be truthy.)
 ```
 
-Note that `Assert` provides `aseert` and `assert_*` methods same as in `Minitest::Assertions`
-except they throw not `Minitest::Assertion` but `AssertionError` when an assertion fails.
+## API
+
+`Assert` provides `aseert` and `assert_*` methods as its module functions.  
+The method interfaces are basically the same as ones of `minitest` gem except that
+they throw not `Minitest::Assertion` but `AssertionError` when an assertion fails.
 
 See also: http://docs.seattlerb.org/minitest/Minitest/Assertions.html
 
